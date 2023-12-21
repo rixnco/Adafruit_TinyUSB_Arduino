@@ -72,6 +72,14 @@
 #endif
 #endif
 
+#ifndef USB_SERIAL
+#ifdef BOARD_SERIAL
+#define USB_SERIAL BOARD_SERIAL
+#else
+#define USB_SERIAL nullptr
+#endif
+#endif
+
 #ifndef USB_LANGUAGE
 #define USB_LANGUAGE 0x0409 // default is English
 #endif
@@ -222,7 +230,7 @@ void Adafruit_USBD_Device::clearConfiguration(void) {
   _desc_str_arr[STRID_LANGUAGE] = (const char *)((uint32_t)USB_LANGUAGE);
   _desc_str_arr[STRID_MANUFACTURER] = USB_MANUFACTURER;
   _desc_str_arr[STRID_PRODUCT] = USB_PRODUCT;
-  _desc_str_arr[STRID_SERIAL] = nullptr;
+  _desc_str_arr[STRID_SERIAL] = USB_SERIAL;
   // STRID_SERIAL is platform dependent
 
   _desc_str_count = 4;
@@ -294,7 +302,7 @@ bool Adafruit_USBD_Device::begin(uint8_t rhport) {
   _desc_device.bDeviceSubClass = MISC_SUBCLASS_COMMON;
   _desc_device.bDeviceProtocol = MISC_PROTOCOL_IAD;
 
-  SerialTinyUSB.begin(115200);
+  //SerialTinyUSB.begin(115200);
 
   // Init device hardware and call tusb_init()
   TinyUSB_Port_InitDevice(rhport);
