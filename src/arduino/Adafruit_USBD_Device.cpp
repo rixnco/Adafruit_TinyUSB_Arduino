@@ -302,6 +302,7 @@ bool Adafruit_USBD_Device::begin(uint8_t rhport) {
   _desc_device.bDeviceSubClass = MISC_SUBCLASS_COMMON;
   _desc_device.bDeviceProtocol = MISC_PROTOCOL_IAD;
 
+  // Leave initialization to user's code
   //SerialTinyUSB.begin(115200);
 
   // Init device hardware and call tusb_init()
